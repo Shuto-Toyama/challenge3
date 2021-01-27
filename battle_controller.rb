@@ -1,22 +1,17 @@
-class Battle_Controller < Character
-  def start_message(monster)
-    puts "#{monster.name}があらわれた！"
-  end
+require "./message"
+require "./monster"
+require "./brave"
 
-  def battle_log(brave, monster)
-    puts <<~TEXT
-           *=*=*=*=*=*=*=*=*=*=*
-           【#{brave.name}】HP: #{brave.hp.floor}
-           【#{monster.name}】HP: #{monster.hp.floor}
-           *=*=*=*=*=*=*=*=*=*=*
-         TEXT
-  end
+class BattleController
+  include Message
 
-  def end_message(brave, monster)
-    if brave.hp > 0
-      puts "#{monster.name}をやっつけた!"
-    else
-      puts "#{brave.name}はしんでしまった！"
+  def battle(brave, monster)
+    start_message(monster)
+    while brave.hp > 0 && monster.hp > 0
+      brave.attack(monster)
+      monster.attack(brave) if monster.hp > 0
+      battle_log(brave, monster)
     end
+    end_message(brave, monster)
   end
 end

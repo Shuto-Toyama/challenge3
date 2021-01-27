@@ -2,10 +2,11 @@ require "./character"
 
 class Brave < Character
   def attack(monster)
-    puts "#{@name}の攻撃！"
+    attack_message(name)
     damage = @offense - (monster.defense * 0.5)
     monster.hp -= damage
     monster.hp = 0 if monster.hp < 0
-    puts "#{monster.name}に#{damage.floor}のダメージを与えた！"
+    target = monster
+    damage_message(target, damage)
   end
 end

@@ -1,4 +1,7 @@
+require "./message"
+
 class Character
+  include Message
   attr_accessor :hp
   attr_reader :offense, :defense, :name
 
